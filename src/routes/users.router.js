@@ -1,26 +1,22 @@
 const { Router } = require('express')
-
 const router = Router()
 
-function auth(req, res, next) {
-    req.user = {
-        name: 'fede',
+function auth(req, res, next){
+    req.user={
+        name: 'Alfon',
         role: 'admin'
     }
-    if (req.user.role !== 'admin') {
-        return res.send('no puede avanzar a partir de aqui')
-    }
-    next()
+    if(req.user.role !== 'admin'){
+        return res.send('no podes avanzar perro')
+    }next();
 }
 
+
 const users = []
-
-router.get('/', auth, ( peticion, respuesta ) => {
-
-    respuesta.send({data: users})
+router.get('/', auth, (req, res) =>{
+    res.send({data: users})
 })
 
-// request obj
 // http://localhost:8080/ + /api/users + /
 router.post('/', ( peticion, respuesta ) => {
     const { body } = peticion
@@ -41,19 +37,9 @@ router.delete('/:uid', ( peticion, respuesta ) => {
     const nuevaLista = users.filter(user => user.id !== Number(uid))
     respuesta.send(nuevaLista)
 })
-// ['1', '2', '3'] ->  ['1', '2']
 
 // router.get('/api/productos',)
 
 
 // export default router type module
 module.exports = router // common js
-
-// const carts = [
-//     {id: 'asdfasdfasd', products: [{},{}]},
-//     {id: 'asdfasdfasd', products: []},
-//     {id: 'asdfasdfasd', products: []},
-//     {id: 'asdfasdfasd', products: []},
-//     {id: 'asdfasdfasd', products: []},
-//     {id: 'asdfasdfasd', products: []},
-// ]
